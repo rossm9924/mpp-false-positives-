@@ -40,6 +40,7 @@ create table if not exists public.violations (
   source_url       text,                       -- Google Shopping catalogue page
   screenshot_url   text,
   store_product_id text,                       -- Google catalog id
+  mpp_summary_id   text,                        -- MPP product-summary id (for deep links), if present in the export
   recorded_at      text,
   scan_created_at  text,
   raw              jsonb,                       -- full original CSV row

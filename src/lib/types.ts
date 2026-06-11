@@ -35,6 +35,7 @@ export interface Violation {
   source_url: string | null;
   screenshot_url: string | null;
   store_product_id: string | null;
+  mpp_summary_id: string | null;
   recorded_at: string | null;
   scan_created_at: string | null;
   raw: Record<string, string> | null;

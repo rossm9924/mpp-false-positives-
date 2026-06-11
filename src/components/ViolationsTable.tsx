@@ -12,6 +12,13 @@ const OVERRIDE_OPTIONS: VerdictValue[] = [
   "UNCERTAIN",
 ];
 
+function mppUrl(id: string | null): string | null {
+  if (!id) return null;
+  const base =
+    process.env.NEXT_PUBLIC_MPP_BASE_URL ?? "https://app.mappolicypartners.com";
+  return `${base}/user/account_seller_user_product_summaries/${id}`;
+}
+
 export default function ViolationsTable({
   violations,
   onOverride,
@@ -59,6 +66,16 @@ function Row({
           <VerdictBadge status={v.status} verdict={v.verdict} />
           {v.manual_override && (
             <span className="ml-1 text-[10px] text-gray-400">(manual)</span>
+          )}
+          {flagged && v.seller_listing_url && (
+            <a
+              href={v.seller_listing_url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-0.5 block text-[11px] text-blue-600 underline"
+            >
+              Review listing ↗
+            </a>
           )}
         </Td>
         <Td>{v.confidence != null ? `${v.confidence}%` : "—"}</Td>
@@ -139,6 +156,18 @@ function Row({
                   "—"
                 )}
               </Detail>
+              {mppUrl(v.mpp_summary_id) && (
+                <Detail label="MPP">
+                  <a
+                    href={mppUrl(v.mpp_summary_id)!}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-blue-600 underline"
+                  >
+                    View in MPP ↗
+                  </a>
+                </Detail>
+              )}
               <Detail label="MAP / store price">
                 {v.map != null ? `$${v.map}` : "—"} /{" "}
                 {v.store_price != null ? `$${v.store_price}` : "—"}

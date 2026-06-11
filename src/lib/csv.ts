@@ -19,6 +19,7 @@ export interface ParsedViolationRow {
   source_url: string | null;
   screenshot_url: string | null;
   store_product_id: string | null;
+  mpp_summary_id: string | null;
   recorded_at: string | null;
   scan_created_at: string | null;
   raw: Record<string, string>;
@@ -109,6 +110,15 @@ export function parseViolationsCsv(
       source_url: pick(raw, "Source URL", "Source"),
       screenshot_url: pick(raw, "Screenshot URL"),
       store_product_id: pick(raw, "Store Product ID", "Google Shopping ID", "Google Product ID"),
+      mpp_summary_id: pick(
+        raw,
+        "Product Summary ID",
+        "Summary ID",
+        "Account Seller User Product Summary ID",
+        "Account Seller User Product Summary",
+        "MPP Summary ID",
+        "Flagged Issue ID",
+      ),
       recorded_at: pick(raw, "Recorded At"),
       scan_created_at: pick(raw, "Scan Created At"),
       raw,
